@@ -196,7 +196,7 @@ export default function Home(props) {
 }
 
 export const getStaticProps = async () => {
-	if (process.browser) {
+	if (typeof window !== 'undefined') {
 		if (localStorage.getItem('profileData')) {
 			const profile = localStorage.getItem('profileData');
 			return {
@@ -214,7 +214,7 @@ export const getStaticProps = async () => {
 
 		const profile = await res.json();
 
-		if (process.browser) {
+		if (typeof window !== 'undefined') {
 			localStorage.setItem('profileData', profile);
 		}
 

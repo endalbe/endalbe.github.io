@@ -6,12 +6,9 @@ function Layout({ home, children, profile }) {
 	return (
 		<div>
 			<Head>
-				<link rel="icon" href="/favicon.ico" />
-				<meta name="description" content="" />
-				<meta name="theme-color" content="#0f1624" />
-				<meta property="og:image" content="" />
-				<meta name="og:title" content="" />
-				<meta name="twitter:card" content="" />
+				<link rel="icon" href="/favicon.png" />
+				<meta name="description" content="Portfolio site" />
+				<meta name="theme-color" />
 			</Head>
 
 			<Navbar home={home} profile={profile || null} />
@@ -22,7 +19,7 @@ function Layout({ home, children, profile }) {
 }
 
 export const getStaticProps = async () => {
-	if (process.browser) {
+	if (typeof window !== 'undefined') {
 		if (localStorage.getItem('profileData')) {
 			const profile = localStorage.getItem('profileData');
 			return {
@@ -39,7 +36,7 @@ export const getStaticProps = async () => {
 		});
 
 		const profile = await res.json();
-		if (process.browser) {
+		if (typeof window !== 'undefined') {
 			localStorage.setItem('profileData', profile);
 		}
 

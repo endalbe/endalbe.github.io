@@ -73,7 +73,7 @@ const Github = (props) => {
 };
 
 export const getStaticProps = async () => {
-	if (process.browser) {
+	if (typeof window !== 'undefined') {
 		if (localStorage.getItem('projectsData')) {
 			const projects = localStorage.getItem('projectsData');
 			return {
@@ -91,7 +91,7 @@ export const getStaticProps = async () => {
 
 		const projects = await res.json();
 
-		if (process.browser) {
+		if (typeof window !== 'undefined') {
 			localStorage.setItem('projectsData', projects);
 		}
 

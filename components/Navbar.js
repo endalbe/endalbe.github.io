@@ -53,7 +53,7 @@ export default function Navbar({ home, profile }) {
 								cursor={'pointer'}
 								minW={0}
 							>
-								{profile.avatar_url ? (
+								{profile?.avatar_url ? (
 									<Avatar
 										size="md"
 										src={profile?.avatar_url}
