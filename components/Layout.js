@@ -14,7 +14,7 @@ function Layout({ home, children, profile }) {
 				<meta name="twitter:card" content="" />
 			</Head>
 
-			<Navbar home={home} profile={profile} />
+			<Navbar home={home} profile={profile || null} />
 
 			<main>{children}</main>
 		</div>
