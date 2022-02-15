@@ -53,12 +53,7 @@ export default function Navbar({ home, profile }) {
 								cursor={'pointer'}
 								minW={0}
 							>
-								<Avatar
-									size="md"
-									src={
-										'https://avatars.githubusercontent.com/u/35006451?v=4'
-									}
-								/>
+								<Avatar size="md" src={profile?.avatar_url} />
 							</MenuButton>
 							<MenuList>
 								<a
