@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build && next export && cp -R ./pages/api ./out/api",
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
