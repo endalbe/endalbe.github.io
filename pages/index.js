@@ -30,8 +30,6 @@ export default function Home() {
 	if (isLoadingProfile) return <Spinner />;
 	if (isErrorProfile) return <div>Error</div>;
 
-	console.log(profile);
-
 	return (
 		<Layout home className={styles.container}>
 			<Box marginX={10} marginY={14}>
