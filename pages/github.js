@@ -5,29 +5,17 @@ import {
 	Flex,
 	Heading,
 	HStack,
-	Spinner,
 	Tag,
 	TagLabel,
 	useColorModeValue,
 	Wrap
 } from '@chakra-ui/react';
 
-import { useEffect, useState } from 'react';
-
 import Layout from '../components/Layout';
 import Project from '../components/Project';
-import useGetDataApi from '../hooks/useGetDataApi';
 
-const Github = () => {
-	const { data, isLoadingProjects, isErrorProjects } = useGetDataApi('repos');
-	const [projects, setProjects] = useState(data);
-
-	useEffect(() => {
-		setProjects(data);
-	}, [data]);
-
-	if (isLoadingProjects) return <Spinner />;
-	if (isErrorProjects) return <div>Error</div>;
+const Github = (props) => {
+	const projects = props.projects;
 
 	return (
 		<Layout>
@@ -54,7 +42,7 @@ const Github = () => {
 								fontWeight="bold"
 								fontSize={20}
 							>
-								<TagLabel>{projects?.length}</TagLabel>
+								<TagLabel>{projects?.length || 0}</TagLabel>
 							</Tag>
 						</HStack>
 					</Flex>
@@ -69,7 +57,7 @@ const Github = () => {
 						mb={14}
 						mt={4}
 					>
-						{projects &&
+						{projects?.length &&
 							projects.map((project) => (
 								<Project
 									key={project?.id}
@@ -81,6 +69,38 @@ const Github = () => {
 			</Container>
 		</Layout>
 	);
+};
+
+export const getStaticProps = async () => {
+	if (process.browser) {
+		if (localStorage.getItem('projectsData')) {
+			const projects = localStorage.getItem('projectsData');
+			return {
+				props: {
+					projects
+				}
+			};
+		}
+	}
+
+	try {
+		const res = await fetch('https://api.github.com/users/endalbe/repos', {
+			auth: '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'
+		});
+
+		const projects = await res.json();
+		if (process.browser) {
+			localStorage.setItem('projectsData', projects);
+		}
+
+		return {
+			props: {
+				projects
+			}
+		};
+	} catch (error) {
+		return { projects: null };
+	}
 };
 
 export default Github;

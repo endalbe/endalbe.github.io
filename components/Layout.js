@@ -1,20 +1,8 @@
-import { Spinner } from '@chakra-ui/react';
-
 import Head from 'next/head';
 
-import useGetDataApi from '../hooks/useGetDataApi';
 import Navbar from './Navbar';
 
-function Layout({ children, home }) {
-	const {
-		data: profile,
-		isLoadingProfile,
-		isErrorProfile
-	} = useGetDataApi('profile') || null;
-
-	if (isLoadingProfile) return <Spinner />;
-	if (isErrorProfile) return <div>Error</div>;
-
+function Layout({ home, children, profile }) {
 	return (
 		<div>
 			<Head>
@@ -32,5 +20,37 @@ function Layout({ children, home }) {
 		</div>
 	);
 }
+
+export const getStaticProps = async () => {
+	if (process.browser) {
+		if (localStorage.getItem('profileData')) {
+			const profile = localStorage.getItem('profileData');
+			return {
+				props: {
+					profile
+				}
+			};
+		}
+	}
+
+	try {
+		const res = await fetch('https://api.github.com/users/endalbe', {
+			auth: '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'
+		});
+
+		const profile = await res.json();
+		if (process.browser) {
+			localStorage.setItem('profileData', profile);
+		}
+
+		return {
+			props: {
+				profile
+			}
+		};
+	} catch (error) {
+		return { props: null };
+	}
+};
 
 export default Layout;

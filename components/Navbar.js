@@ -48,17 +48,30 @@ export default function Navbar({ home, profile }) {
 						<Menu>
 							<MenuButton
 								as={Button}
-								rounded={'full'}
+								rounded={profile?.avatar_url ? 'full' : ''}
 								variant={'link'}
 								cursor={'pointer'}
 								minW={0}
 							>
-								<Avatar
-									size="md"
-									src={
-										'https://avatars.githubusercontent.com/u/35006451?v=4'
-									}
-								/>
+								{profile?.avatar_url ? (
+									<Avatar
+										size="md"
+										src={profile?.avatar_url}
+									/>
+								) : (
+									<IconButton
+										ml={2}
+										size={'md'}
+										icon={
+											isOpen ? (
+												<CloseIcon />
+											) : (
+												<HamburgerIcon />
+											)
+										}
+										aria-label={'Open Menu'}
+									/>
+								)}
 							</MenuButton>
 							<MenuList>
 								<a
@@ -100,7 +113,7 @@ export default function Navbar({ home, profile }) {
 							display={{ base: 'none', md: 'flex' }}
 						>
 							{Links.map((link) => (
-								<>
+								<div key={link.path}>
 									{link.path === '/' ? (
 										!home ? (
 											<NavLink path={link.path}>
@@ -114,12 +127,13 @@ export default function Navbar({ home, profile }) {
 											{link.pageName}
 										</NavLink>
 									)}
-								</>
+								</div>
 							))}
 						</HStack>
 					</HStack>
 					<ThemeSwitcher />
 					<IconButton
+						ml={2}
 						size={'md'}
 						icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
 						aria-label={'Open Menu'}
