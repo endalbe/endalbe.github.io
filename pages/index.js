@@ -20,32 +20,17 @@ import useGetDataApi from '../hooks/useGetDataApi';
 import styles from '../styles/pages/Home.module.scss';
 
 export default function Home() {
-	// const { data, isLoadingProfile, isErrorProfile } = useGetDataApi('profile');
-	const [data, setData] = useState(null);
-	const [isLoading, setLoading] = useState(false);
-
-	useEffect(() => {
-		setLoading(true);
-		fetch('api/profile')
-			.then((res) => res.json())
-			.then((data) => {
-				setData(data);
-				setLoading(false);
-			});
-	}, []);
-
+	const { data, isLoadingProfile, isErrorProfile } = useGetDataApi('profile');
 	const [profile, setProfile] = useState(data);
 
 	useEffect(() => {
 		setProfile(data);
 	}, [data]);
 
-	// if (isLoadingProfile) return <Spinner />;
-	// if (isErrorProfile) return <div>Error</div>;
+	if (isLoadingProfile) return <Spinner />;
+	if (isErrorProfile) return <div>Error</div>;
 
-	// if (isLoading) return <p>Loading...</p>;
-	// if (!data) return <p>No data</p>;
-	// console.log(profile);
+	console.log(profile);
 
 	return (
 		<Layout home className={styles.container}>

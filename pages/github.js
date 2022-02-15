@@ -19,31 +19,15 @@ import Project from '../components/Project';
 import useGetDataApi from '../hooks/useGetDataApi';
 
 const Github = () => {
-	// const { data, isLoadingProjects, isErrorProjects } = useGetDataApi('repos');
-	// const [projects, setProjects] = useState(data);
-
-	// useEffect(() => {
-	// 	setProjects(data);
-	// }, [data]);
-
-	// if (isLoadingProjects) return <Spinner />;
-	// if (isErrorProjects) return <div>Error</div>;
-
-	const [projects, setProjects] = useState(null);
-	const [isLoading, setLoading] = useState(false);
+	const { data, isLoadingProjects, isErrorProjects } = useGetDataApi('repos');
+	const [projects, setProjects] = useState(data);
 
 	useEffect(() => {
-		setLoading(true);
-		fetch('api/repos')
-			.then((res) => res.json())
-			.then((projects) => {
-				setProjects(projects);
-				setLoading(false);
-			});
-	}, []);
+		setProjects(data);
+	}, [data]);
 
-	// if (isLoading) return <p>Loading...</p>;
-	// if (!projects) return <p>No profile data</p>;
+	if (isLoadingProjects) return <Spinner />;
+	if (isErrorProjects) return <div>Error</div>;
 
 	return (
 		<Layout>
