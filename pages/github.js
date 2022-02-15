@@ -11,7 +11,7 @@ import {
 	useColorModeValue,
 	Wrap
 } from '@chakra-ui/react';
-import { Error } from 'next/error';
+
 import { useEffect, useState } from 'react';
 
 import Layout from '../components/Layout';
@@ -27,7 +27,7 @@ const Github = () => {
 	}, [data]);
 
 	if (isLoadingProjects) return <Spinner />;
-	if (isErrorProjects) return <Error />;
+	if (isErrorProjects) return <div>Error</div>;
 
 	return (
 		<Layout>

@@ -11,7 +11,7 @@ import {
 	useColorModeValue,
 	Button
 } from '@chakra-ui/react';
-import { Error } from 'next/error';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -28,7 +28,7 @@ export default function Home() {
 	}, [data]);
 
 	if (isLoadingProfile) return <Spinner />;
-	if (isErrorProfile) return <Error />;
+	if (isErrorProfile) return <div>Error</div>;
 
 	console.log(profile);
 

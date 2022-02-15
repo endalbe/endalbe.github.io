@@ -1,5 +1,5 @@
 import { Spinner } from '@chakra-ui/react';
-import { Error } from 'next/error';
+
 import Head from 'next/head';
 
 import useGetDataApi from '../hooks/useGetDataApi';
@@ -13,7 +13,7 @@ function Layout({ children, home }) {
 	} = useGetDataApi('profile') || null;
 
 	if (isLoadingProfile) return <Spinner />;
-	if (isErrorProfile) return <Error />;
+	if (isErrorProfile) return <div>Error</div>;
 
 	return (
 		<div>
