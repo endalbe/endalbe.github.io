@@ -22,7 +22,7 @@ export default function Home(props) {
 
 	return (
 		<Layout home className={styles.container} profile={profile | null}>
-			{profile?.length > 0 ? (
+			{profile ? (
 				<Box marginX={10} marginY={14}>
 					{profile?.name && (
 						<Heading size={'lg'} fontSize="50px">
@@ -130,6 +130,7 @@ export default function Home(props) {
 												'blue.400',
 												'blue.400'
 											)}
+											mx={4}
 											px={4}
 											py={1}
 											rounded={'md'}

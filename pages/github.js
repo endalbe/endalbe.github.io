@@ -54,6 +54,7 @@ const Github = (props) => {
 					<Wrap
 						spacing={{ base: '20px', md: '40px' }}
 						align="center"
+						justify="space-between"
 						mb={14}
 						mt={4}
 					>
@@ -89,6 +90,7 @@ export const getStaticProps = async () => {
 		});
 
 		const projects = await res.json();
+
 		if (process.browser) {
 			localStorage.setItem('projectsData', projects);
 		}
