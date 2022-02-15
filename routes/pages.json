@@ -1,0 +1,12 @@
+{
+	"pages": [
+		{
+			"pageName": "Main Page",
+			"path": "/"
+		},
+		{
+			"pageName": "Github Repos",
+			"path": "/github"
+		}
+	]
+}
