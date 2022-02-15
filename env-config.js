@@ -1,5 +1,7 @@
 const prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
-	'process.env.BACKEND_URL': prod ? 'https://endalbe.github.io' : ''
+	'process.env.BACKEND_URL': prod
+		? 'https://endalbe.github.io'
+		: 'https://endalbe.github.io'
 };
