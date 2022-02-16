@@ -24,15 +24,6 @@ export default function Home(props) {
 		<Layout home className={styles.container}>
 			{profile ? (
 				<Box flex={2} flexDirection="row" marginX={10} marginY={14}>
-					{profile?.avatar_url && (
-						<Image
-							width={300}
-							height={300}
-							src={profile?.avatar_url}
-							alt="avatar"
-						/>
-					)}
-
 					{profile?.name && (
 						<Heading size={'lg'} fontSize="50px">
 							{profile?.name}
