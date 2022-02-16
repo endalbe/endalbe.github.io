@@ -93,11 +93,20 @@ export default function Navbar({ home, data }) {
 							</MenuButton>
 							<MenuList>
 								<a
+									href={profile?.html_url}
+									rel="noreferrer"
+									target="_blank"
+								>
+									<MenuItem>
+										Github @{profile?.login}
+									</MenuItem>
+								</a>
+								<a
 									rel="noreferrer"
 									target={'_blank'}
-									href={'https://t.me/endalbe'}
+									href={'https://t.me/front_endalbe'}
 								>
-									<MenuItem>Telegram</MenuItem>
+									<MenuItem>Telegram @front_endalbe</MenuItem>
 								</a>
 								<a
 									rel="noreferrer"
@@ -121,7 +130,7 @@ export default function Navbar({ home, data }) {
 								rel="noreferrer"
 								target="_blank"
 							>
-								{profile?.login}
+								@{profile?.login}
 							</a>
 						</Box>
 

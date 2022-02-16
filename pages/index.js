@@ -70,59 +70,11 @@ export default function Home(props) {
 						</Text>
 					)}
 
-					{(profile?.total_private_repos ||
-						profile?.public_repos) && (
+					{profile?.public_repos && (
 						<>
 							<Divider my={8} />
 
 							<Flex flexDirection="row" alignItems="center">
-								<Text
-									fontWeight={'bold'}
-									color={useColorModeValue(
-										'gray.500',
-										'cyan.300'
-									)}
-								>
-									Repositories:
-								</Text>
-								{profile?.total_private_repos && (
-									<Flex
-										flexDirection="row"
-										alignItems="center"
-										mx={4}
-										bg={useColorModeValue(
-											'gray.300',
-											'gray.600'
-										)}
-										px={4}
-										py={1}
-										rounded="md"
-									>
-										<Text color={'gray.500'}>Private</Text>
-										<HStack spacing={4} ml={2}>
-											<Tag
-												size={'lg'}
-												variant="subtle"
-												bg={useColorModeValue(
-													'gray.100',
-													'gray.800'
-												)}
-												color={useColorModeValue(
-													'gray.500',
-													'gray.200'
-												)}
-												fontSize={20}
-											>
-												<TagLabel>
-													{
-														profile?.total_private_repos
-													}
-												</TagLabel>
-											</Tag>
-										</HStack>
-									</Flex>
-								)}
-
 								{profile?.public_repos && (
 									<Link href={'/github'}>
 										<Button
@@ -130,7 +82,6 @@ export default function Home(props) {
 												'blue.400',
 												'blue.400'
 											)}
-											mx={4}
 											px={4}
 											py={1}
 											rounded={'md'}
@@ -144,41 +95,33 @@ export default function Home(props) {
 												bg: 'blue.700'
 											}}
 										>
-											<Flex
-												flexDirection="row"
-												alignItems="center"
-												mx={4}
+											<Text
+												color={useColorModeValue(
+													'white',
+													'white'
+												)}
 											>
-												<Text
+												Public repositories
+											</Text>
+											<HStack spacing={4} ml={2}>
+												<Tag
+													size={'lg'}
+													variant="subtle"
+													bg={useColorModeValue(
+														'blue.300',
+														'blue.700'
+													)}
 													color={useColorModeValue(
 														'white',
 														'white'
 													)}
+													fontSize={20}
 												>
-													Public
-												</Text>
-												<HStack spacing={4} ml={2}>
-													<Tag
-														size={'lg'}
-														variant="subtle"
-														bg={useColorModeValue(
-															'blue.300',
-															'blue.700'
-														)}
-														color={useColorModeValue(
-															'white',
-															'white'
-														)}
-														fontSize={20}
-													>
-														<TagLabel>
-															{
-																profile?.public_repos
-															}
-														</TagLabel>
-													</Tag>
-												</HStack>
-											</Flex>
+													<TagLabel>
+														{profile?.public_repos}
+													</TagLabel>
+												</Tag>
+											</HStack>
 										</Button>
 									</Link>
 								)}
