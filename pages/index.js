@@ -11,7 +11,7 @@ import {
 	Text,
 	useColorModeValue
 } from '@chakra-ui/react';
-
+import Image from 'next/image';
 import Link from 'next/link';
 
 import Layout from '../components/Layout';
@@ -21,9 +21,18 @@ export default function Home(props) {
 	const profile = props.profile;
 
 	return (
-		<Layout home className={styles.container} profile={profile | null}>
+		<Layout home className={styles.container}>
 			{profile ? (
-				<Box marginX={10} marginY={14}>
+				<Box flex={2} flexDirection="row" marginX={10} marginY={14}>
+					{profile?.avatar_url && (
+						<Image
+							width={300}
+							height={300}
+							src={profile?.avatar_url}
+							alt="avatar"
+						/>
+					)}
+
 					{profile?.name && (
 						<Heading size={'lg'} fontSize="50px">
 							{profile?.name}
@@ -208,9 +217,7 @@ export const getStaticProps = async () => {
 	}
 
 	try {
-		const res = await fetch('https://api.github.com/users/endalbe', {
-			auth: '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'
-		});
+		const res = await fetch('https://api.github.com/users/endalbe');
 
 		const profile = await res.json();
 

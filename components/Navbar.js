@@ -18,6 +18,7 @@ import ReactLink from 'next/link';
 
 import content from '../routes/pages';
 import ThemeSwitcher from './ThemeSwitcher';
+import { useState, useEffect } from 'react';
 
 const Links = content.pages;
 
@@ -29,8 +30,25 @@ const NavLink = ({ path, children }) => (
 	</ReactLink>
 );
 
-export default function Navbar({ home, profile }) {
+export default function Navbar({ home, data }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [profile, setProfile] = useState(null);
+
+	useEffect(() => {
+		if (!profile) {
+			setTimeout(async () => {
+				const res = await fetch('https://api.github.com/users/endalbe');
+
+				const data = await res.json();
+
+				if (typeof window !== 'undefined') {
+					localStorage.setItem('profileData', data);
+				}
+
+				setProfile(data);
+			});
+		}
+	}, [profile]);
 
 	return (
 		<Box>
