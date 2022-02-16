@@ -54,7 +54,7 @@ const Github = (props) => {
 					<Wrap
 						spacing={{ base: '20px', md: '40px' }}
 						align="center"
-						justify="space-between"
+						justify="space-around"
 						mb={14}
 						mt={4}
 					>
