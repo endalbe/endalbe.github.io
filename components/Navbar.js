@@ -182,9 +182,21 @@ export default function Navbar({ home, data }) {
 					<Box pb={4} display={{ md: 'none' }}>
 						<Stack as={'nav'} spacing={4}>
 							{Links.map((link) => (
-								<NavLink key={link?.path} path={link.path}>
-									{link.pageName}
-								</NavLink>
+								<Box key={link.path}>
+									{link.path === '/' ? (
+										!home ? (
+											<NavLink path={link.path}>
+												{link.pageName}
+											</NavLink>
+										) : (
+											''
+										)
+									) : (
+										<NavLink path={link.path}>
+											{link.pageName}
+										</NavLink>
+									)}
+								</Box>
 							))}
 						</Stack>
 					</Box>
