@@ -55,7 +55,7 @@ export const Project = ({ project }) => {
 						color={useColorModeValue('gray.700', 'gray.400')}
 						px={3}
 					>
-						Latest commit: {date + ' ' + time}
+						Latest active: {date + ' ' + time}
 					</Text>
 				</Stack>
 
