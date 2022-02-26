@@ -114,20 +114,6 @@ export default function Navbar({ home, data }) {
 								>
 									<MenuItem>Telegram @front_endalbe</MenuItem>
 								</a>
-								<a
-									rel="noreferrer"
-									target={'_blank'}
-									href={'https://instagram.com/endalbe'}
-								>
-									<MenuItem>Instagram</MenuItem>
-								</a>
-								<a
-									rel="noreferrer"
-									target={'_blank'}
-									href={'https://vk.com/endalbe'}
-								>
-									<MenuItem>VK</MenuItem>
-								</a>
 							</MenuList>
 						</Menu>
 						<Box>
