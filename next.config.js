@@ -5,9 +5,11 @@ module.exports = {
 	assetPrefix: debug ? '' : 'https://endalbe.github.io',
 
 	reactStrictMode: true,
+
 	sassOptions: {
 		includePaths: [path.join(__dirname, 'styles')]
 	},
+
 	eslint: {
 		ignoreDuringBuilds: true
 	}
