@@ -3,6 +3,8 @@ import {
 	Avatar,
 	Box,
 	Button,
+	ButtonGroup,
+	Container,
 	Flex,
 	HStack,
 	IconButton,
@@ -11,10 +13,13 @@ import {
 	MenuItem,
 	MenuList,
 	Stack,
+	Text,
 	useColorModeValue,
-	useDisclosure
+	useDisclosure,
+	useMediaQuery
 } from '@chakra-ui/react';
 import ReactLink from 'next/link';
+import { useRouter } from 'next/router';
 import content from '../routes/pages';
 
 const Links = content.pages;
@@ -27,12 +32,14 @@ const NavLink = ({ path, children }) => (
 	</ReactLink>
 );
 
-export default function Navbar({ home, profile }) {
+export default function Navbar({ profile }) {
+	const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const router = useRouter();
 
 	return (
-		<Box>
-			<Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+		<Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+			<Container maxW={'container.lg'} padding={!isLargerThan1280 && '0'}>
 				<Flex
 					h={16}
 					alignItems={'center'}
@@ -49,13 +56,28 @@ export default function Navbar({ home, profile }) {
 								rounded={profile?.avatar_url ? 'full' : ''}
 								variant={'link'}
 								cursor={'pointer'}
+								style={{
+									border: 'none !important',
+									outline: 'none !important',
+									boxShadow: 'none !important',
+									textDecoration: 'none !important'
+								}}
 								minW={0}
 							>
 								{profile?.avatar_url ? (
-									<Avatar
-										size="md"
-										src={profile?.avatar_url || ''}
-									/>
+									<ButtonGroup gap="2" alignItems={'center'}>
+										<Avatar
+											size="md"
+											src={profile?.avatar_url || ''}
+										/>
+										<Text
+											style={{
+												textDecoration: 'none'
+											}}
+										>
+											Evgeny Agapov
+										</Text>
+									</ButtonGroup>
 								) : (
 									<IconButton
 										ml={2}
@@ -93,40 +115,26 @@ export default function Navbar({ home, profile }) {
 								</a>
 							</MenuList>
 						</Menu>
-						<Box>
-							<a
-								href={
-									profile?.html_url ||
-									'https://github.com/endalbe'
-								}
-								rel="noreferrer"
-								target="_blank"
-							>
-								Github @{profile?.login || 'endalbe'}
-							</a>
-						</Box>
 
 						<HStack
 							as={'nav'}
-							spacing={4}
+							spacing={0}
 							display={{ base: 'none', md: 'flex' }}
 						>
 							{Links.map((link) => (
-								<div key={link.path}>
-									{link.path === '/' ? (
-										!home ? (
-											<NavLink path={link.path}>
-												{link.pageName}
-											</NavLink>
-										) : (
-											''
-										)
-									) : (
+								<Box
+									style={{
+										textDecoration: 'none',
+										color: 'inherit'
+									}}
+									key={link.path}
+								>
+									{link.path !== router.pathname && (
 										<NavLink path={link.path}>
 											{link.pageName}
 										</NavLink>
 									)}
-								</div>
+								</Box>
 							))}
 						</HStack>
 					</HStack>
@@ -141,30 +149,24 @@ export default function Navbar({ home, profile }) {
 					/>
 				</Flex>
 
-				{isOpen ? (
+				{isOpen && (
 					<Box pb={4} display={{ md: 'none' }}>
 						<Stack as={'nav'} spacing={4}>
-							{Links.map((link) => (
-								<Box key={link.path}>
-									{link.path === '/' ? (
-										!home ? (
-											<NavLink path={link.path}>
-												{link.pageName}
-											</NavLink>
-										) : (
-											''
-										)
-									) : (
-										<NavLink path={link.path}>
+							{Links.map(
+								(link) =>
+									link.path !== router.pathname && (
+										<NavLink
+											width={'100%'}
+											path={link.path}
+										>
 											{link.pageName}
 										</NavLink>
-									)}
-								</Box>
-							))}
+									)
+							)}
 						</Stack>
 					</Box>
-				) : null}
-			</Box>
+				)}
+			</Container>
 		</Box>
 	);
 }
