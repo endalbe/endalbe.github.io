@@ -13,12 +13,20 @@ import {
 } from '@chakra-ui/react';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 import Layout from '../components/Layout';
 import styles from '../styles/pages/Home.module.scss';
 
-export default function Home(props) {
-	const profile = props.profile;
+export default function Home() {
+	const [profile, setProfile] = useState([]);
+
+	useEffect(() => {
+		fetch('https://api.github.com/users/endalbe')
+			.then((res) => res.json())
+			.then((data) => setProfile(data))
+			.catch((err) => console.log(err));
+	}, []);
 
 	return (
 		<Layout home className={styles.container}>
@@ -137,34 +145,3 @@ export default function Home(props) {
 		</Layout>
 	);
 }
-
-export const getStaticProps = async () => {
-	if (typeof window !== 'undefined') {
-		if (localStorage.getItem('profileData')) {
-			const profile = localStorage.getItem('profileData');
-			return {
-				props: {
-					profile
-				}
-			};
-		}
-	}
-
-	try {
-		const res = await fetch('https://api.github.com/users/endalbe');
-
-		const profile = await res.json();
-
-		if (typeof window !== 'undefined') {
-			localStorage.setItem('profileData', profile);
-		}
-
-		return {
-			props: {
-				profile
-			}
-		};
-	} catch (error) {
-		return { props: null };
-	}
-};

@@ -10,12 +10,23 @@ import {
 	useColorModeValue,
 	Wrap
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 import Layout from '../components/Layout';
 import Project from '../components/Project';
 
-const Github = (props) => {
-	const projects = props.projects;
+const Github = () => {
+	// const projects = props.projects;
+	const [projects, setProjects] = useState([]);
+
+	useEffect(() => {
+		fetch('https://api.github.com/users/endalbe/repos')
+			.then((res) => res.json())
+			.then((data) => {
+				setProjects(data);
+			})
+			.catch((err) => console.log(err));
+	}, []);
 
 	return (
 		<Layout>
@@ -70,39 +81,6 @@ const Github = (props) => {
 			</Container>
 		</Layout>
 	);
-};
-
-export const getStaticProps = async () => {
-	if (typeof window !== 'undefined') {
-		if (localStorage.getItem('projectsData')) {
-			const projects = localStorage.getItem('projectsData');
-			return {
-				props: {
-					projects
-				}
-			};
-		}
-	}
-
-	try {
-		const res = await fetch('https://api.github.com/users/endalbe/repos', {
-			auth: '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'
-		});
-
-		const projects = await res.json();
-
-		if (typeof window !== 'undefined') {
-			localStorage.setItem('projectsData', projects);
-		}
-
-		return {
-			props: {
-				projects
-			}
-		};
-	} catch (error) {
-		return { projects: null };
-	}
 };
 
 export default Github;
