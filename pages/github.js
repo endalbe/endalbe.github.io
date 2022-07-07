@@ -32,6 +32,7 @@ const Github = ({ projects }) => {
 						>
 							Github Repositories
 						</Heading>
+
 						<HStack spacing={4} ml={2}>
 							<Tag
 								size={'lg'}
@@ -56,13 +57,9 @@ const Github = ({ projects }) => {
 						mb={14}
 						mt={4}
 					>
-						{projects?.length &&
-							projects.map((project) => (
-								<Project
-									key={project?.id}
-									project={project}
-								></Project>
-							))}
+						{projects.map((project) => (
+							<Project key={project?.id} project={project} />
+						))}
 					</Wrap>
 				</Center>
 			</Container>

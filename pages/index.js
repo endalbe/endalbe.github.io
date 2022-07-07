@@ -22,7 +22,6 @@ import styles from '../styles/pages/Home.module.scss';
 export default function Home({ profile }) {
 	const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
 
-	console.log(isLargerThan1280);
 	return (
 		<Layout className={styles.container}>
 			<Container maxW={'container.lg'} padding={!isLargerThan1280 && 0}>

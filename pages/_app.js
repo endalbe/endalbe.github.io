@@ -4,6 +4,7 @@ import theme from '../theme';
 import { ChakraProvider } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Head from 'next/head';
 
 const PortfolioApp = ({ Component, pageProps }) => {
 	const [profile, setProfile] = useState(null);
@@ -24,11 +25,24 @@ const PortfolioApp = ({ Component, pageProps }) => {
 	}, [profile]);
 
 	return (
-		<ChakraProvider theme={theme}>
-			<Navbar profile={profile} />
+		<>
+			<Head>
+				<title>@endalbe / Portfolio </title>
+				<meta
+					name="viewport"
+					content="initial-scale=1.0, width=device-width"
+				/>
+			</Head>
+			<ChakraProvider theme={theme}>
+				<Navbar profile={profile} />
 
-			<Component projects={projects} profile={profile} {...pageProps} />
-		</ChakraProvider>
+				<Component
+					projects={projects}
+					profile={profile}
+					{...pageProps}
+				/>
+			</ChakraProvider>
+		</>
 	);
 };
 
