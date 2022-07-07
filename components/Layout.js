@@ -1,8 +1,6 @@
 import Head from 'next/head';
 
-import Navbar from './Navbar';
-
-function Layout({ home, children }) {
+function Layout({ children }) {
 	return (
 		<div>
 			<Head>
@@ -10,8 +8,6 @@ function Layout({ home, children }) {
 				<meta name="description" content="Portfolio site" />
 				<meta name={'theme-color'} />
 			</Head>
-
-			<Navbar home={home} />
 
 			<main>{children}</main>
 		</div>

@@ -10,24 +10,11 @@ import {
 	useColorModeValue,
 	Wrap
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 
 import Layout from '../components/Layout';
 import Project from '../components/Project';
 
-const Github = () => {
-	// const projects = props.projects;
-	const [projects, setProjects] = useState([]);
-
-	useEffect(() => {
-		fetch('https://api.github.com/users/endalbe/repos')
-			.then((res) => res.json())
-			.then((data) => {
-				setProjects(data);
-			})
-			.catch((err) => console.log(err));
-	}, []);
-
+const Github = ({ projects }) => {
 	return (
 		<Layout>
 			<Container maxW="container.lg">

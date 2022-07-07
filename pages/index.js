@@ -13,23 +13,13 @@ import {
 } from '@chakra-ui/react';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 import Layout from '../components/Layout';
 import styles from '../styles/pages/Home.module.scss';
 
-export default function Home() {
-	const [profile, setProfile] = useState([]);
-
-	useEffect(() => {
-		fetch('https://api.github.com/users/endalbe')
-			.then((res) => res.json())
-			.then((data) => setProfile(data))
-			.catch((err) => console.log(err));
-	}, []);
-
+export default function Home({ profile }) {
 	return (
-		<Layout home className={styles.container}>
+		<Layout className={styles.container}>
 			{profile ? (
 				<Box flex={2} flexDirection="row" marginX={10} marginY={14}>
 					{profile?.name && (

@@ -7,7 +7,6 @@ import {
 	useColorModeValue,
 	WrapItem
 } from '@chakra-ui/react';
-import * as React from 'react';
 
 const linkStyle = {
 	width: 'auto'

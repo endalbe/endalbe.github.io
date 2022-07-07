@@ -15,10 +15,7 @@ import {
 	useDisclosure
 } from '@chakra-ui/react';
 import ReactLink from 'next/link';
-
 import content from '../routes/pages';
-import ThemeSwitcher from './ThemeSwitcher';
-import { useState, useEffect } from 'react';
 
 const Links = content.pages;
 
@@ -30,25 +27,8 @@ const NavLink = ({ path, children }) => (
 	</ReactLink>
 );
 
-export default function Navbar({ home, data }) {
+export default function Navbar({ home, profile }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [profile, setProfile] = useState(null);
-
-	useEffect(() => {
-		if (!profile) {
-			setTimeout(async () => {
-				const res = await fetch('https://api.github.com/users/endalbe');
-
-				const data = await res.json();
-
-				if (typeof window !== 'undefined') {
-					localStorage.setItem('profileData', data);
-				}
-
-				setProfile(data);
-			});
-		}
-	}, [profile]);
 
 	return (
 		<Box>
@@ -74,10 +54,7 @@ export default function Navbar({ home, data }) {
 								{profile?.avatar_url ? (
 									<Avatar
 										size="md"
-										src={
-											profile?.avatar_url ||
-											'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-19/272182244_708371740568035_2131386680590510043_n.jpg?stp=dst-jpg_s320x320&_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=107&_nc_ohc=8BjCnarGTngAX_qRMdL&edm=ABfd0MgBAAAA&ccb=7-4&oh=00_AT_HEcgKz7JdIeNbMlaPKWuCxVGge_uAPndkn5cr5GNGTA&oe=62129859&_nc_sid=7bff83'
-										}
+										src={profile?.avatar_url || ''}
 									/>
 								) : (
 									<IconButton
@@ -153,7 +130,7 @@ export default function Navbar({ home, data }) {
 							))}
 						</HStack>
 					</HStack>
-					<ThemeSwitcher />
+
 					<IconButton
 						ml={2}
 						size={'md'}
